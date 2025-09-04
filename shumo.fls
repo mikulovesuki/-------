@@ -263,6 +263,22 @@ INPUT C:\Program Files\MiKTeX\tex\latex\l3packages\xparse\xparse.sty
 INPUT C:\Program Files\MiKTeX\tex\latex\l3packages\xparse\xparse.sty
 INPUT C:\Users\Administrator\AppData\Roaming\MiKTeX\tex\latex\inlinedef\inlinedef.sty
 INPUT C:\Users\Administrator\AppData\Roaming\MiKTeX\tex\latex\inlinedef\inlinedef.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\listings\listings.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\listings\listings.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\listings\lstpatch.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\listings\lstpatch.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\listings\lstpatch.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\listings\lstmisc.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\listings\lstmisc.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\listings\lstmisc.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\listings\listings.cfg
+INPUT C:\Program Files\MiKTeX\tex\latex\listings\listings.cfg
+INPUT C:\Program Files\MiKTeX\tex\latex\listings\listings.cfg
+INPUT C:\Users\Administrator\AppData\Roaming\MiKTeX\tex\latex\setspace\setspace.sty
+INPUT C:\Users\Administrator\AppData\Roaming\MiKTeX\tex\latex\setspace\setspace.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\listings\lstlang1.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\listings\lstlang1.sty
+INPUT C:\Program Files\MiKTeX\tex\latex\listings\lstlang1.sty
 INPUT C:\Users\Administrator\AppData\Roaming\MiKTeX\tex\latex\cjk\UTF8\UTF8.enc
 INPUT C:\Users\Administrator\AppData\Roaming\MiKTeX\tex\latex\cjk\UTF8\UTF8.enc
 INPUT C:\Users\Administrator\AppData\Roaming\MiKTeX\tex\latex\cjk\UTF8\UTF8.chr
@@ -279,27 +295,29 @@ INPUT C:\Program Files\MiKTeX\tex\latex\epstopdf-pkg\epstopdf-base.sty
 INPUT C:\Program Files\MiKTeX\tex\latex\00miktex\epstopdf-sys.cfg
 INPUT C:\Program Files\MiKTeX\tex\latex\00miktex\epstopdf-sys.cfg
 INPUT C:\Program Files\MiKTeX\tex\latex\00miktex\epstopdf-sys.cfg
-INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmr12.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmr17.tfm
+INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmr12.tfm
 INPUT C:\Users\Administrator\AppData\Roaming\MiKTeX\tex\latex\ctex\fd\c70rm.fd
 INPUT C:\Users\Administrator\AppData\Roaming\MiKTeX\tex\latex\ctex\fd\c70rm.fd
 INPUT C:\Users\Administrator\AppData\Roaming\MiKTeX\tex\latex\ctex\fd\c70rm.fd
 INPUT C:\Users\Administrator\AppData\Roaming\MiKTeX\fonts\tfm\zhmetrics\unisong\unisong57.tfm
 OUTPUT shumo.pdf
 INPUT C:\Users\Administrator\AppData\Roaming\MiKTeX\fonts\tfm\zhmetrics\unisong\unisong4e.tfm
+INPUT C:\Users\Administrator\AppData\Roaming\MiKTeX\fonts\tfm\zhmetrics\unisong\unisong6d.tfm
 INPUT C:\Users\Administrator\AppData\Roaming\MiKTeX\fonts\tfm\zhmetrics\unisong\unisong52.tfm
-INPUT C:\Users\Administrator\AppData\Roaming\MiKTeX\fonts\tfm\zhmetrics\unisong\unisong60.tfm
-INPUT C:\Users\Administrator\AppData\Roaming\MiKTeX\fonts\tfm\zhmetrics\unisong\unisong89.tfm
-INPUT C:\Users\Administrator\AppData\Roaming\MiKTeX\fonts\tfm\zhmetrics\unisong\unisong76.tfm
-INPUT C:\Users\Administrator\AppData\Roaming\MiKTeX\fonts\tfm\zhmetrics\unisong\unisong70.tfm
-INPUT C:\Users\Administrator\AppData\Roaming\MiKTeX\fonts\tfm\zhmetrics\unisong\unisong96.tfm
-INPUT C:\Users\Administrator\AppData\Roaming\MiKTeX\fonts\tfm\zhmetrics\unisong\unisong5f.tfm
-INPUT C:\Users\Administrator\AppData\Roaming\MiKTeX\fonts\tfm\zhmetrics\unisong\unisong63.tfm
-INPUT C:\Users\Administrator\AppData\Roaming\MiKTeX\fonts\tfm\zhmetrics\unisong\unisong62.tfm
 INPUT C:\Users\Administrator\AppData\Roaming\MiKTeX\fonts\tfm\zhmetrics\unisong\unisong68.tfm
+INPUT C:\Users\Administrator\AppData\Roaming\MiKTeX\fonts\tfm\zhmetrics\unisong\unisong76.tfm
+INPUT C:\Users\Administrator\AppData\Roaming\MiKTeX\fonts\tfm\zhmetrics\unisong\unisong85.tfm
+INPUT C:\Users\Administrator\AppData\Roaming\MiKTeX\fonts\tfm\zhmetrics\unisong\unisong83.tfm
+INPUT C:\Users\Administrator\AppData\Roaming\MiKTeX\fonts\tfm\zhmetrics\unisong\unisong55.tfm
+INPUT C:\Users\Administrator\AppData\Roaming\MiKTeX\fonts\tfm\zhmetrics\unisong\unisong54.tfm
+INPUT C:\Users\Administrator\AppData\Roaming\MiKTeX\fonts\tfm\zhmetrics\unisong\unisong88.tfm
+INPUT C:\Users\Administrator\AppData\Roaming\MiKTeX\fonts\tfm\zhmetrics\unisong\unisong8d.tfm
+INPUT C:\Users\Administrator\AppData\Roaming\MiKTeX\fonts\tfm\zhmetrics\unisong\unisong81.tfm
+INPUT C:\Users\Administrator\AppData\Roaming\MiKTeX\fonts\tfm\zhmetrics\unisong\unisong5b.tfm
+INPUT C:\Users\Administrator\AppData\Roaming\MiKTeX\fonts\tfm\zhmetrics\unisong\unisong51.tfm
+INPUT C:\Users\Administrator\AppData\Roaming\MiKTeX\fonts\tfm\zhmetrics\unisong\unisong7b.tfm
 INPUT C:\Users\Administrator\AppData\Roaming\MiKTeX\fonts\tfm\zhmetrics\unisong\unisong6a.tfm
-INPUT C:\Users\Administrator\AppData\Roaming\MiKTeX\fonts\tfm\zhmetrics\unisong\unisong65.tfm
-INPUT C:\Users\Administrator\AppData\Roaming\MiKTeX\fonts\tfm\zhmetrics\unisong\unisong98.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmr8.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmr6.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmmi12.tfm
@@ -323,15 +341,18 @@ INPUT C:\Program Files\MiKTeX\tex\latex\amsfonts\umsb.fd
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\amsfonts\symbols\msbm10.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\amsfonts\symbols\msbm10.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\amsfonts\symbols\msbm7.tfm
-INPUT C:\Users\Administrator\AppData\Roaming\MiKTeX\fonts\tfm\zhmetrics\unisong\unisong5e.tfm
-INPUT C:\Users\Administrator\AppData\Roaming\MiKTeX\fonts\tfm\zhmetrics\unisong\unisong67.tfm
-INPUT C:\Users\Administrator\AppData\Roaming\MiKTeX\fonts\tfm\zhmetrics\unisong\unisong65.tfm
+INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmr12.tfm
+INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmbx12.tfm
+INPUT C:\Users\Administrator\AppData\Roaming\MiKTeX\fonts\tfm\zhmetrics\unihei\unihei64.tfm
+INPUT C:\Users\Administrator\AppData\Roaming\MiKTeX\fonts\tfm\zhmetrics\unihei\unihei89.tfm
 INPUT C:\Users\Administrator\AppData\Roaming\MiKTeX\tex\generic\ctex\zhmap\ctex-zhmap-windows.tex
 INPUT C:\Users\Administrator\AppData\Roaming\MiKTeX\tex\generic\ctex\zhmap\ctex-zhmap-windows.tex
 INPUT C:\Users\Administrator\AppData\Local\MiKTeX\fonts\map\pdftex\pdftex.map
 INPUT C:\Users\Administrator\AppData\Roaming\MiKTeX\fonts\sfd\ttf2pk\UGBK.sfd
 INPUT C:\Users\Administrator\AppData\Roaming\MiKTeX\fonts\sfd\ttf2pk\Unicode.sfd
 INPUT shumo.aux
+INPUT C:\Windows\Fonts\simhei.ttf
+INPUT C:\Windows\Fonts\simhei.ttf
 INPUT C:\Windows\Fonts\simsun.ttc
 INPUT C:\Windows\Fonts\simsun.ttc
 INPUT C:\Windows\Fonts\simsun.ttc
@@ -349,9 +370,7 @@ INPUT C:\Windows\Fonts\simsun.ttc
 INPUT C:\Windows\Fonts\simsun.ttc
 INPUT C:\Windows\Fonts\simsun.ttc
 INPUT C:\Windows\Fonts\simsun.ttc
+INPUT C:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmbx12.pfb
+INPUT C:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmbx12.pfb
 INPUT C:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmr10.pfb
 INPUT C:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmr10.pfb
-INPUT C:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmr12.pfb
-INPUT C:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmr12.pfb
-INPUT C:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmr17.pfb
-INPUT C:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmr17.pfb
