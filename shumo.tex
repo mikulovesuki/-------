@@ -230,7 +230,8 @@ $G$ & 烟幕团圆心坐标 \\
 
 本研究通过对所有变量方程式进行联立，得出最简单形式的限制条件，尽可能地将问题转化为单目标优化问题，把变量限制在较小范围内，进而使用模拟退火算法对问题进行求解，得出近似最优解。
 \subsection{问题四分析}
-
+本问为问题三的深化问题，区别在于本问题中可调用无人机FY1、FY2、FY3，与问题三相比，本问题研究的变量更多，是问题3的3倍，因此本问题的复杂度更高。
+本问题要考虑到3架无人机的有效遮蔽时长的叠加效应，且3架无人机的飞行轨迹均不可相交，因此本问题中，3架无人机投掷策略的局部最优解之和不一定是全局最优解，因此本问题中，我们需要对3架无人机的投掷策略进行整体优化。
 \subsection{问题五分析}
 本问题中需要处理的物理关系十分复杂，涉及到较多的变量，变量间相关性研究十分复杂，且变量数值较大，难以用数学分析法进行求解，各物理量函数式冗长，难以分辨出各变量间的联系，因此本研究选用遗传算法对场景进行模拟，得出最优决策。
 需要注意，本问题中，5架无人机和导弹不完全处于同一个平面上，因此本问题中，我们需要对各物理量在$XOY$,$XOZ$,$YOZ$三个平面上的投影进行分析，进而计算出各物理量的函数关系式。
@@ -327,6 +328,35 @@ t_{\text{起爆}} \leq t \leq t_{\text{起爆}} + 20,
     \item 烟幕团球心做匀速运动轨迹分析:设气团球心位置为$P_{smoke}$。其爆炸位置坐标为$((2000-120(t_1 + \Delta t)),0,2000-5 \Delta t^2)$其后续移动到预设有效遮蔽点的坐标是$((2000-120(t_1 + \Delta t)),0,2000-5 \Delta t^2)$
     \item 通过比对观察分析，发现各变量间存在较强的相关性，且各变量均对有效遮蔽时长有影响参差不齐，不同变量对有效遮蔽时长的影响程度不同，因此本研究决定对各变量进行有限枚举，进而计算出不同变量组合下的有效遮蔽时长，发现在$无人机FY1运动方向\alpha$最终选取有效遮蔽时长最长的变量组合作为最优解。
 \end{itemize}
+
+\begin{itemize}
+    \item 设 FY1 的飞行方向与 $x$ 轴正方向的旋转角为 $\alpha$（逆时针为正），$\alpha\in[0,2\pi]$。则在时刻 $t$，FY1 的位置为
+    \[
+    \mathbf{B}'(t) = \bigl(17800 + v_{FY1} t \cos\alpha,\;\; v_{FY1} t \sin\alpha,\;\; 1800\bigr).
+    \]
+    \item 在时刻 $t' = t'$ 投掷烟幕弹，投掷后弹体在 $t \ge t'$ 的位置（以无人机在 $t'$ 的位置为初始）为
+    \[
+    \mathbf{B}''(t) = \mathbf{r}_u(t') + \bigl(-v_{FY1} \cos\alpha\, (t-t'),\;\; -v_{FY1} \sin\alpha\, (t-t'),\;\; -\tfrac{1}{2}g\, (t-t')^2\bigr).
+    \]
+    \item 若引信时间为 $\Delta t$，起爆时刻 $t_{\mathrm{exp}} = t' + \Delta t$，则在 $t \ge t_{\mathrm{exp}}$ 时烟幕团球心位置为
+    \[
+    \mathbf{B}'''(t) = \mathbf{p}_{\mathrm{exp}} + \bigl(-v_{FY1} \cos\alpha\, (t-t_{\mathrm{exp}}),\;\; -v_{FY1} \sin\alpha\, (t-t_{\mathrm{exp}}),\;\; -v_s\, (t-t_{\mathrm{exp}})\bigr),
+    \]
+    其中
+    \[
+    \mathbf{p}_{\mathrm{exp}} = \mathbf{r}_u(t') + \bigl(-v_{FY1} \cos\alpha\, \Delta t,\;\; -v_{FY1} \sin\alpha\, \Delta t,\;\; -\tfrac{1}{2}g\, \Delta t^2\bigr)
+    \]
+    为起爆位置，$v_s$ 为烟幕下落速度。
+    \item 取常用数值 $g = 10\,\mathrm{m/s^2}$，$v_s = 3\,\mathrm{m/s}$，可写成简化形式
+    \[
+    \mathbf{B}'''(t) = \Bigl(17800 + v_{FY1}(t' + \Delta t)\cos\alpha,\;\; v_{FY1} t' \sin\alpha,\;\; 1800 - 5\Delta t^{2} - 3\bigl(t - t' - \Delta t\bigr)\Bigr).
+    \]
+    \item 导弹 $M_1$ 在时刻 $t$ 的位置若记为 $\mathbf{A}'(t)$，导弹速率为 $v_{M1}$，轨迹与水平面的夹角为 $\theta_1$，则
+    \[
+    \mathbf{A}'(t) = \bigl(20000 - v_{M1} \cos\theta_1\, t,\;\; 0,\;\; 2000 - v_{M1} \sin\theta_1\, t\bigr).
+    \]
+\end{itemize}
+% ...existing code...
 本研究通过对问题一模型中的常量物理量用变量替代，建立出各物理量关于变量的函数关系式，进而通过网格搜索法对变量进行取值，计算出不同变量组合下的有效遮蔽时长，最终选取有效遮蔽时长最长的变量组合作为最优解。
 
 \subsubsection{两算法对比及相互验证}
@@ -358,7 +388,7 @@ t_{\text{起爆}} \leq t \leq t_{\text{起爆}} + 20,
 \textit{综上所述，在问题一中，无人机FY1以$120\,\mathrm{m/s}$的速度沿假目标方向飞行，并于$1.5\,\mathrm{s}$后投掷烟幕弹，烟幕弹在投掷后$3.6\,\mathrm{s}$起爆。通过对导弹轨迹与烟幕团运动轨迹的精确建模与联立求解，最终计算得到对真目标的有效遮蔽时长为$2.24\,\mathrm{s}$。}
 
 \subsection{问题二模型求解}
-\textit{黎曼积分算法求值}
+\subsubsection{黎曼积分算法求值}
 \begin{itemize}
     \item 最佳无人机速度$v_\text{无人机}=72.3m /s$
     \item 最佳无人机飞行方向$\aleph = 2.4rad$
@@ -366,8 +396,36 @@ t_{\text{起爆}} \leq t \leq t_{\text{起爆}} + 20,
     \item 最佳投掷时间$t_1 = 0.23s$
 \end{itemize}
 综上代入模型，得出有效遮挡时长$T = 4.71s$。
-\textit{变量区块化搜索算法求值}
+\subsubsection{变量区块化搜索算法求值}
+\begin{center}
+烟幕干扰弹对 $M_1$ 的有效遮蔽时满足：
+\[
+\left\{
+\begin{aligned}
+&\bigl\|\overrightarrow{CB'''}\bigr\|^{2}
+- \left(\frac{\overrightarrow{CB'''}\cdot\overrightarrow{CA}}{\|\overrightarrow{CA}\|}\right)^{2}
+\le 10^{2}, \\[4pt]
+&17790+v_{FY1}\bigl(t'+t_{\text{间隔}}\bigr)\cos\alpha
+\le 20000 - v_{M1}\,t\cos\theta_1
+\le 17810+v_{FY1}\bigl(t'+t_{\text{间隔}}\bigr)\cos\alpha, \\[4pt]
+&v_FY_1 t \sin\alpha-10 \le v_{FY_1}\,t\sin\alpha \le 10+v_FY_1 t \sin \alpha
+, \\[4pt]
+&17790-5\,t_{\text{间隔}}^{2}-3\bigl(t-t'-t_{\text{间隔}}\bigr)
+\le 2000 - v_{M1}\,t\sin\theta_1 \\ 
+&\qquad\qquad\qquad\qquad\qquad\qquad
+\le 1810-5\,t_{\text{间隔}}^{2}-3\bigl(t-t'-t_{\text{间隔}}\bigr).
+\end{aligned}
+\right.
+\]
+\end{center}
 
+
+\begin{itemize}
+    \item 从上到下分别为不等式$1,2,3,4$
+    \item 不等式1的区间左端点为遮挡初始时刻
+    \item 取不等式2，3，4所得区间最小右端点为遮挡末时刻
+\end{itemize}
+% ...existing
 \subsection{问题三模型求解}
 
 \subsection{问题四模型求解}
