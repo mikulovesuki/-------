@@ -99,11 +99,11 @@ const ld l_down(const ld x) {
 }
 
 ld calc_l(const ld v_fy, const ld t_explode, const ld t_fuze) {
-    return t_explode + std::max(0.L, (y0_fy - g * t_fuze * t_fuze / 2.L - l_up(x_fy(v_fy, t_explode))) / vy_smoke);
+    return t_explode + std::max(0.L, (y0_fy - g * t_fuze * t_fuze / 2.L - l_up(x_fy(v_fy, t_explode))) / -vy_smoke);
 }
 
 ld calc_r(const ld v_fy, const ld t_explode, const ld t_fuze, const ld l) {
-    const ld ans1 = t_explode + std::max(0.L, (y0_fy - g * t_fuze * t_fuze / 2.L - l_down(x_fy(v_fy, t_explode))) / vy_smoke);
+    const ld ans1 = t_explode + std::max(0.L, (y0_fy - g * t_fuze * t_fuze / 2.L - l_down(x_fy(v_fy, t_explode))) / -vy_smoke);
     const ld c1 = vx_m;
     const ld c2 = x0_m - x_fy(v_fy, t_explode);
     const ld c3 = vy_m - vy_smoke;
@@ -177,7 +177,7 @@ constexpr bool check_by_formula(const ld t_drop1, const ld t_drop2, const ld t_d
 
 void anneal() {
     ld t = 1.L;
-    constexpr ld cooling_rate = 1.L - 1e-6L;
+    constexpr ld cooling_rate = 1.L - 1e-7L;
     constexpr ld min_t = 1e-12L;
     ld cur_v = -70.L;
     ld cur_fuze_t1 = 0.L, cur_t_drop1 = 0.L;
@@ -259,6 +259,9 @@ void anneal() {
     }
 
     std::cout << std::fixed << std::setprecision(6) << "cur_v: " << cur_v << ", fuze_t1: " << cur_fuze_t1 << ", t_drop1: " << cur_t_drop1 << ", fuze_t2: " << cur_fuze_t2 << ", t_drop2: " << cur_t_drop2 << ", fuze_t3: " << cur_fuze_t3 << ", t_drop3: " << cur_t_drop3 << "\n" << "f: " << Energy(cur_v, cur_fuze_t1, cur_t_drop1 + cur_fuze_t1, cur_fuze_t2, cur_t_drop2 + cur_fuze_t2, cur_fuze_t3, cur_t_drop3 + cur_fuze_t3) << "\n";
+    std::cout << "t1: " << calc_r(cur_v, cur_t_drop1 + cur_fuze_t1, cur_fuze_t1, calc_l(cur_v, cur_t_drop1 + cur_fuze_t1, cur_fuze_t1)) - calc_l(cur_v, cur_t_drop1 + cur_fuze_t1, cur_fuze_t1) << "\n";
+    std::cout << "t2: " << calc_r(cur_v, cur_t_drop2 + cur_fuze_t2, cur_fuze_t2, calc_l(cur_v, cur_t_drop2 + cur_fuze_t2, cur_fuze_t2)) - calc_l(cur_v, cur_t_drop2 + cur_fuze_t2, cur_fuze_t2) << "\n";
+    std::cout << "t3: " << calc_r(cur_v, cur_t_drop3 + cur_fuze_t3, cur_fuze_t3, calc_l(cur_v, cur_t_drop3 + cur_fuze_t3, cur_fuze_t3)) - calc_l(cur_v, cur_t_drop3 + cur_fuze_t3, cur_fuze_t3) << "\n";
 }
 
 int main() {
@@ -266,5 +269,8 @@ int main() {
     return 0;
 }
 
-//cur_v: -140.000000, fuze_t1: 0.000000, t_drop1: 0.000000, fuze_t2: 4.287209, t_drop2: 3.115950, fuze_t3: 5.210478, t_drop3: 5.664967
-//f: -12.503929
+// cur_v: -99.078733, fuze_t1: 2.714645, t_drop1: 0.000000, fuze_t2: 3.587747, t_drop2: 2.311771, fuze_t3: 4.883583, t_drop3: 6.147723
+// f: -15.016578
+// t1: 6.699917
+// t2: 6.699917
+// t3: 6.699917
