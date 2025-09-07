@@ -124,17 +124,19 @@ namespace solve_formula1 {
 
         for (ld t = L + step; t <= R; t += step) {
             ld cur_f = f(t, v, e, d);
-            if (prev_f * cur_f <= 0) { // 存在根
+            if (prev_f * cur_f <= 0) // 存在根
                 roots.push_back(find_root(prev_t, t, v, e, d));
-                roots.emplace_back(find_root(prev_t, t, v, e, d));
-            }
             prev_t = t;
             prev_f = cur_f;
         }
 
-        if (roots.empty()) return std::nanl(""); // 没有根
+        std::sort(roots.begin(), roots.end());
+        if (roots.empty())
+            return -std::numeric_limits<ld>::infinity(); // 没有根
 
-        return *std::min_element(roots.begin(), roots.end());
+        const ld ans = *std::find_if(roots.begin(), roots.end(), [](ld x) { return x >= 0; });
+
+        return ans; // 返回最小非负实根
     }
 }
 
@@ -142,20 +144,44 @@ ld Energy(const ld v, const ld delta_t1, const ld t_explode1, const ld delta_t2,
     const ld l1 = solve_formula1::solve_min_root(v, t_explode1, delta_t1);
     const ld l2 = solve_formula1::solve_min_root(v, t_explode2, delta_t2);
     const ld l3 = solve_formula1::solve_min_root(v, t_explode3, delta_t3);
-    const ld r1 = std::min(Formula2(v, t_explode1), Formula3(v, delta_t1, t_explode1));
-    const ld r2 = std::min(Formula2(v, t_explode2), Formula3(v, delta_t2, t_explode2));
-    const ld r3 = std::min(Formula2(v, t_explode3), Formula3(v, delta_t3, t_explode3));
-    // calc total length of union of three intervals [l_i, r_i]
+    const ld r1 = std::max(std::min(Formula2(v, t_explode1), Formula3(v, delta_t1, t_explode1)), l1);
+    const ld r2 = std::max(std::min(Formula2(v, t_explode2), Formula3(v, delta_t2, t_explode2)), l2);
+    const ld r3 = std::max(std::min(Formula2(v, t_explode3), Formula3(v, delta_t3, t_explode3)), l3);
 
-    const ld d1 = std::max(r1 - l1, ld{0.});
-    const ld d2 = std::max(r2 - l2, ld{0.});
-    const ld d3 = std::max(r3 - l3, ld{0.});
-    const ld d12 = std::max(std::min(r1, r2) - std::max(l1, l2), ld{0.});
-    const ld d13 = std::max(std::min(r1, r3) - std::max(l1, l3), ld{0.});
-    const ld d23 = std::max(std::min(r2, r3) - std::max(l2, l3), ld{0.});
-    const ld d123 = std::max(std::min({r1, r2, r3}) - std::max({l1, l2, l3}), ld{0.});
+    if (l1 < 0 || l2 < 0 || l3 < 0)
+        return 1e18; // 无效解
 
-    return -(d1 + d2 + d3 - d12 - d13 - d23 + d123);
+    // 把区间存起来
+    std::vector<std::pair<ld, ld>> intervals = {
+        {l1, r1}, {l2, r2}, {l3, r3}
+    };
+
+    // std::cout << "[" << l1 << ", " << r1 << "], [" << l2 << ", " << r2 << "], [" << l3 << ", " << r3 << "]\n";
+
+    // 按左端点排序
+    std::sort(intervals.begin(), intervals.end());
+
+    // 合并区间
+    ld total = 0.0;
+    ld cur_l = intervals[0].first;
+    ld cur_r = intervals[0].second;
+
+    for (size_t i = 1; i < intervals.size(); ++i) {
+        auto [L, R] = intervals[i];
+        if (L > cur_r) {
+            // 没有重叠，先结算前一个区间
+            total += cur_r - cur_l;
+            cur_l = L;
+            cur_r = R;
+        } else {
+            // 有重叠，扩展右端点
+            cur_r = std::max(cur_r, R);
+        }
+    }
+    // 结算最后一个区间
+    total += cur_r - cur_l;
+
+    return -total; // 和原来的逻辑保持一致
 }
 
 void anneal() {
@@ -163,22 +189,22 @@ void anneal() {
     constexpr ld cooling_rate = 0.999;
     constexpr ld min_t = 1e-12;
     ld cur_v = 105.;
-    ld cur_delta_t1 = 2.5, cur_t_drop1 = 2.5;
-    ld cur_delta_t2 = 2.5, cur_t_drop2 = 2.5;
-    ld cur_delta_t3 = 2.5, cur_t_drop3 = 2.5;
+    ld cur_delta_t1 = 15., cur_t_drop1 = 15.;
+    ld cur_delta_t2 = 15., cur_t_drop2 = 15.;
+    ld cur_delta_t3 = 15., cur_t_drop3 = 15.;
 
     while (t > min_t) {
         ld cur_t_explode1 = cur_t_drop1 + cur_delta_t1;
         ld cur_t_explode2 = cur_t_drop2 + cur_delta_t2;
         ld cur_t_explode3 = cur_t_drop3 + cur_delta_t3;
 
-        ld new_v = std::clamp(cur_v + 35 * t * dist(rng), (ld) 70., (ld) 140.);
-        ld new_delta_t1 = std::clamp(cur_delta_t1 + 2.5 * t * dist(rng), (ld) 0., (ld) 5.);
-        ld new_t_drop1 = std::clamp(cur_t_drop1 + 2.5 * t * dist(rng), (ld) 0., (ld) 5.);
-        ld new_delta_t2 = std::clamp(cur_delta_t2 + 2.5 * t * dist(rng), (ld) 0., (ld) 5.);
-        ld new_t_drop2 = std::clamp(cur_t_drop2 + 2.5 * t * dist(rng), (ld) 0., (ld) 5.);
-        ld new_delta_t3 = std::clamp(cur_delta_t3 + 2.5 * t * dist(rng), (ld) 0., (ld) 5.);
-        ld new_t_drop3 = std::clamp(cur_t_drop3 + 2.5 * t * dist(rng), (ld) 0., (ld) 5.);
+        ld new_v = std::clamp(cur_v + 35 * t * dist(rng), 70.L, 140.L);
+        ld new_delta_t1 = std::clamp(cur_delta_t1 + 15. * t * dist(rng), 0.L, 30.L);
+        ld new_t_drop1 = std::clamp(cur_t_drop1 + 15. * t * dist(rng), 0.L, 30.L);
+        ld new_delta_t2 = std::clamp(cur_delta_t2 + 15. * t * dist(rng), 0.L, 30.L);
+        ld new_t_drop2 = std::clamp(cur_t_drop2 + 15. * t * dist(rng), 0.L, 30.L);
+        ld new_delta_t3 = std::clamp(cur_delta_t3 + 15. * t * dist(rng), 0.L, 30.L);
+        ld new_t_drop3 = std::clamp(cur_t_drop3 + 15. * t * dist(rng), 0.L, 30.L);
 
         ld new_t_explode1 = new_t_drop1 + new_delta_t1;
         ld new_t_explode2 = new_t_drop2 + new_delta_t2;
@@ -198,7 +224,7 @@ void anneal() {
             cur_t_drop3 = new_t_drop3;
         }
 
-        if ((int) std::floor(t) % 50 == 0)
+        if (dist01(rng) < 0.01)
             std::cout << "Current v: " << cur_v << ", f: " << Energy(cur_v, cur_delta_t1, cur_t_explode1, cur_delta_t2, cur_t_explode2, cur_delta_t3, cur_t_explode3) << ", Temperature: " << t << "\n";
 
         t *= cooling_rate;
@@ -209,19 +235,19 @@ void anneal() {
         ld cur_t_explode2 = cur_t_drop2 + cur_delta_t2;
         ld cur_t_explode3 = cur_t_drop3 + cur_delta_t3;
 
-        ld new_v = cur_v + 35 * t * dist(rng);
-        ld new_delta_t1 = cur_delta_t1 + 2.5 * t * dist(rng);
-        ld new_t_drop1 = cur_t_drop1 + 2.5 * t * dist(rng);
-        ld new_delta_t2 = cur_delta_t2 + 2.5 * t * dist(rng);
-        ld new_t_drop2 = cur_t_drop2 + 2.5 * t * dist(rng);
-        ld new_delta_t3 = cur_delta_t3 + 2.5 * t * dist(rng);
-        ld new_t_drop3 = cur_t_drop3 + 2.5 * t * dist(rng);
+        ld new_v = std::clamp(cur_v + 35. * t * dist(rng), 70.L, 140.L);
+        ld new_delta_t1 = std::clamp(cur_delta_t1 + 15. * t * dist(rng), 0.L, 30.L);
+        ld new_t_drop1 = std::clamp(cur_t_drop1 + 15. * t * dist(rng), 0.L, 30.L);
+        ld new_delta_t2 = std::clamp(cur_delta_t2 + 15. * t * dist(rng), 0.L, 30.L);
+        ld new_t_drop2 = std::clamp(cur_t_drop2 + 15. * t * dist(rng), 0.L, 30.L);
+        ld new_delta_t3 = std::clamp(cur_delta_t3 + 15. * t * dist(rng), 0.L, 30.L);
+        ld new_t_drop3 = std::clamp(cur_t_drop3 + 15. * t * dist(rng), 0.L, 30.L);
 
         ld new_t_explode1 = new_t_drop1 + new_delta_t1;
         ld new_t_explode2 = new_t_drop2 + new_delta_t2;
         ld new_t_explode3 = new_t_drop3 + new_delta_t3;
 
-        if (!check_by_formula(new_t_explode1, new_t_explode2, new_t_explode3))
+        if (!check_by_formula(new_t_drop1, new_t_drop2, new_t_drop3))
             continue;
 
         const ld delta = Energy(new_v, new_delta_t1, new_t_explode1, new_delta_t2, new_t_explode2, new_delta_t3, new_t_explode3) - Energy(cur_v, cur_delta_t1, cur_t_explode1, cur_delta_t2, cur_t_explode2, cur_delta_t3, cur_t_explode3);
